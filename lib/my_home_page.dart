@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do/data.dart';
+import 'package:to_do/cardWidget.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -8,6 +9,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purple[300],
         title: Text("TODO: Pending"),
         actions: [
           PopupMenuButton(
@@ -18,6 +20,7 @@ class MyHomePage extends StatelessWidget {
                   .toList())
         ],
       ),
+      body: ListView(),
     );
   }
 }
