@@ -22,9 +22,25 @@ class CardWidget extends StatelessWidget {
         ),
         trailing: Text(
           model.type,
-          style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: typeColor(model.type), fontWeight: FontWeight.bold),
         ),
       ),
     );
+  }
+}
+
+typeColor(String value) {
+  switch (value) {
+    case "Shopping":
+      return Colors.amber;
+    case "Work":
+      return Colors.red;
+    case "Personal":
+      return Colors.blue;
+    case "Wishlist":
+      return Colors.green;
+    default:
+      return Colors.black;
   }
 }
