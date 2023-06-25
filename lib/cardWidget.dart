@@ -15,7 +15,10 @@ class CardWidget extends StatelessWidget {
           },
           value: false,
         ),
-        title: Text(model.taskName),
+        title: Text(
+          model.taskName,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         subtitle: Text(
           model.taskDate,
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),

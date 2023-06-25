@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:to_do/model.dart';
 
 class NewTaskPage extends StatefulWidget {
-  const NewTaskPage({super.key});
+  final Function(Model) addTodo;
+
+  const NewTaskPage({super.key, required this.addTodo});
 
   @override
   State<NewTaskPage> createState() => _NewTaskPageState();
@@ -9,7 +12,7 @@ class NewTaskPage extends StatefulWidget {
 
 class _NewTaskPageState extends State<NewTaskPage> {
   TextEditingController taskController = TextEditingController();
-  TextEditingController dueDate = TextEditingController();
+  TextEditingController dueDateController = TextEditingController();
   String dropDownValue = "Work";
 
   @override
@@ -44,7 +47,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 SizedBox(
                   width: 300,
                   child: TextFormField(
-                    controller: dueDate,
+                    controller: dueDateController,
                     decoration: InputDecoration(hintText: 'Date not set'),
                   ),
                 ),
@@ -56,7 +59,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                         initialDate: DateTime.now(),
                         firstDate: DateTime(2000),
                         lastDate: DateTime(2100));
-                    dueDate.text = date.toString().substring(0, 10);
+                    dueDateController.text = date.toString().substring(0, 10);
                     print(date);
                   },
                 )
@@ -74,7 +77,9 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 value: dropDownValue,
                 items: [
                   DropdownMenuItem(value: "Work", child: Text("Work")),
-                  DropdownMenuItem(value: "Personal", child: Text('Personal'))
+                  DropdownMenuItem(value: "Personal", child: Text('Personal')),
+                  DropdownMenuItem(value: "Shopping", child: Text("Shopping")),
+                  DropdownMenuItem(value: "Wishlist", child: Text("Wishlist"))
                 ],
                 onChanged: ((value) {
                   dropDownValue = value!;
@@ -82,6 +87,20 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 }))
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          widget.addTodo(
+            Model(
+              taskName: taskController.text,
+              taskDate: dueDateController.text,
+              type: dropDownValue,
+              status: false,
+            ),
+          );
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.done),
       ),
     );
   }

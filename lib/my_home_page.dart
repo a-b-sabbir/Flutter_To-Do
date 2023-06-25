@@ -4,8 +4,36 @@ import 'package:to_do/cardWidget.dart';
 import 'package:to_do/model.dart';
 import 'package:to_do/newTaskPage.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  void addTodo(Model model) {
+    listOfTodo.add(model);
+    setState(() {});
+  }
+
+  List<Model> listOfTodo = [
+    Model(
+        taskName: "Task 1",
+        taskDate: "23-01-2023",
+        type: "Work",
+        status: false),
+    Model(
+        taskName: "Task 2",
+        taskDate: "23-01-2023",
+        type: "Shopping",
+        status: false),
+    Model(
+        taskName: "Task 3",
+        taskDate: "23-01-2023",
+        type: "Wishlist",
+        status: true)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,39 +51,13 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
       body: ListView(
-        children: [
-          CardWidget(
-              model: Model(
-                  taskName: "Task Name",
-                  taskDate: "23-01-2023",
-                  type: "Work",
-                  status: false)),
-          CardWidget(
-              model: Model(
-                  taskName: "Task Name",
-                  taskDate: "23-01-2023",
-                  type: "Shopping",
-                  status: false)),
-          CardWidget(
-              model: Model(
-                  taskName: "Task Name",
-                  taskDate: "23-01-2023",
-                  type: "Personal",
-                  status: false)),
-          CardWidget(
-              model: Model(
-                  taskName: "Task Name",
-                  taskDate: "23-01-2023",
-                  type: "Wishlist",
-                  status: true)),
-        ],
-      ),
+          children: listOfTodo.map((e) => CardWidget(model: e)).toList()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => NewTaskPage(),
+                builder: (child) => NewTaskPage(addTodo: addTodo),
               ));
         },
         child: Icon(Icons.add),
