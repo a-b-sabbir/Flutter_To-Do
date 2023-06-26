@@ -17,23 +17,13 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
-  List<Model> listOfTodo = [
-    Model(
-        taskName: "Task 1",
-        taskDate: "23-01-2023",
-        type: "Work",
-        status: false),
-    Model(
-        taskName: "Task 2",
-        taskDate: "23-01-2023",
-        type: "Shopping",
-        status: false),
-    Model(
-        taskName: "Task 3",
-        taskDate: "23-01-2023",
-        type: "Wishlist",
-        status: true)
-  ];
+  updateStatus(String id, bool status) {
+    int index = listOfTodo.indexWhere((element) => element.id == id);
+    listOfTodo[index].status = status;
+    setState(() {});
+  }
+
+  List<Model> listOfTodo = [];
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +41,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: ListView(
-          children: listOfTodo.map((e) => CardWidget(model: e)).toList()),
+          children: listOfTodo
+              .map((e) => CardWidget(
+                    model: e,
+                    update: updateStatus,
+                  ))
+              .toList()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

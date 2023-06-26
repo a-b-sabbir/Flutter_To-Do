@@ -3,7 +3,8 @@ import 'package:to_do/model.dart';
 
 class CardWidget extends StatelessWidget {
   final Model model;
-  const CardWidget({super.key, required this.model});
+  final Function(String, bool) update;
+  const CardWidget({super.key, required this.update, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +13,9 @@ class CardWidget extends StatelessWidget {
         leading: Checkbox(
           onChanged: (value) {
             print(value);
+            update(model.id, value!);
           },
-          value: false,
+          value: model.status,
         ),
         title: Text(
           model.taskName,

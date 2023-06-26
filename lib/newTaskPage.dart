@@ -92,6 +92,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
         onPressed: () {
           widget.addTodo(
             Model(
+              id: DateTime.now().toString(),
               taskName: taskController.text,
               taskDate: dueDateController.text,
               type: dropDownValue,
